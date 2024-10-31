@@ -42,7 +42,7 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
             # Update high score and quit game.
-                high_score = open("High_Score.txt", 'w')
+                high_score = open("High_Score.txt", "w")
                 high_score.write(str(self.stats.high_score))
                 high_score.close()
                 pygame.quit()
@@ -63,7 +63,7 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             # Update high score and quit game.
-            with open("High_Score.txt", 'w') as high_score:
+            with open("High_Score.txt", "w") as high_score:
                 high_score.write(str(self.stats.high_score))
             pygame.quit()
             sys.exit()
@@ -95,7 +95,7 @@ class AlienInvasion:
         quit = self.quit_button.rect.collidepoint(mouse_pos)
         if quit and not self.stats.game_active:
             # Update high score.
-            with open("High_Score.txt", 'w') as high_score:
+            with open("High_Score.txt", "w") as high_score:
                 high_score.write(str(self.stats.high_score))
             # Quit game.
             pygame.quit()
@@ -188,7 +188,7 @@ class AlienInvasion:
         self.game_over_rect = self.game_over_image.get_rect()
         self.game_over_rect.center = self.screen_rect.center
         self.screen.blit(self.game_over_image, self.game_over_rect)
-        # sleep(1)
+        sleep(1)
         self.stats.game_active = False
         pygame.mixer.music.stop()
         pygame.mouse.set_visible(True)
@@ -200,12 +200,12 @@ class AlienInvasion:
 
     def _bullet_sound(self):
         """"Play sound when bullet is shot."""
-        shot = pygame.mixer.Sound(r"sounds/gunfire_sound.mp3")
+        shot = pygame.mixer.Sound("sounds/gunfire_sound.mp3")
         pygame.mixer.Sound.play(shot)
 
     def _game_music(self):
         """"Play music when the game starts."""
-        pygame.mixer.music.load(r'sounds/bg_music_trimmed.wav')
+        pygame.mixer.music.load("sounds/bg_music_trimmed.wav")
         pygame.mixer.music.play(-1)
 
     def _update_aliens(self):
@@ -309,7 +309,7 @@ class AlienInvasion:
             self._update_screen()
 
     
-if __name__ == '__main__':
+if __name__ == "__main__":
     #Make a game instance, and run the game.
     ai = AlienInvasion()
     ai.run_game()

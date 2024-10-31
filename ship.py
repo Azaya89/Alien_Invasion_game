@@ -12,7 +12,7 @@ class Ship(Sprite):
         self.screen_rect = ai_game.screen.get_rect()
 
         #Load the ship image and get its rect.
-        self.image = pygame.image.load('images/ship_resize.png')
+        self.image = pygame.image.load("images/ship_resize.png")
         self.rect = self.image.get_rect()
         self.center_ship()
         #Movement flags

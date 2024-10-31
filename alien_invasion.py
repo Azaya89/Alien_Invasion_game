@@ -12,6 +12,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
+
 class AlienInvasion:
     """Overall class to manage assets and behaviour."""
 
@@ -20,8 +21,7 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
         self.bg = GameBackground()
-        # self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height), pygame.NOFRAME)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
@@ -45,6 +45,7 @@ class AlienInvasion:
                 high_score = open("High_Score.txt", 'w')
                 high_score.write(str(self.stats.high_score))
                 high_score.close()
+                pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -64,6 +65,7 @@ class AlienInvasion:
             # Update high score and quit game.
             with open("High_Score.txt", 'w') as high_score:
                 high_score.write(str(self.stats.high_score))
+            pygame.quit()
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -96,6 +98,7 @@ class AlienInvasion:
             with open("High_Score.txt", 'w') as high_score:
                 high_score.write(str(self.stats.high_score))
             # Quit game.
+            pygame.quit()
             sys.exit()
         if resume and not self.stats.game_active:
             # Resume game if there are still ships remaining.
@@ -185,24 +188,24 @@ class AlienInvasion:
         self.game_over_rect = self.game_over_image.get_rect()
         self.game_over_rect.center = self.screen_rect.center
         self.screen.blit(self.game_over_image, self.game_over_rect)
-        sleep(1)
+        # sleep(1)
         self.stats.game_active = False
         pygame.mixer.music.stop()
         pygame.mouse.set_visible(True)
 
     def _crash_sound(self):
         """Play sound when ship is hit."""
-        sound = pygame.mixer.Sound("sounds\crash_sound_trimmed.wav")
+        sound = pygame.mixer.Sound("sounds/crash_sound_trimmed.wav")
         pygame.mixer.Sound.play(sound)
 
     def _bullet_sound(self):
         """"Play sound when bullet is shot."""
-        shot = pygame.mixer.Sound(r"sounds\gunfire_sound.mp3")
+        shot = pygame.mixer.Sound(r"sounds/gunfire_sound.mp3")
         pygame.mixer.Sound.play(shot)
 
     def _game_music(self):
         """"Play music when the game starts."""
-        pygame.mixer.music.load(r'sounds\bg_music_trimmed.wav')
+        pygame.mixer.music.load(r'sounds/bg_music_trimmed.wav')
         pygame.mixer.music.play(-1)
 
     def _update_aliens(self):
